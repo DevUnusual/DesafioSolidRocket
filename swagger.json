@@ -1,0 +1,118 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "This is API solid and simple",
+    "version": "1.0.0",
+    "contact": {
+      "email": "carlos.meneses.g.s@gmail.com"
+    }
+  },
+  "paths":{
+    "/users": {
+      "post":{
+        "tags":["User"],
+        "summary" : "Create user",
+        "description" : "Create a new user",
+        "requestBody" : {
+          "content" : {
+            "application/json":{
+              "schema": {
+                "name" : {
+                  "type" : "string"
+                },
+                "email" : {
+                  "type" : "string"
+                }
+              },
+              "example" : {
+                "name" : "carlos meneses",
+                "email" : "carlos@gmail.com"
+              }
+            }
+          }
+        },
+        "responses" :{
+          "201" : {
+            "description" : "Created"
+          },
+          "404" : {
+            "description" : "Not Found"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        }
+      },
+      "get" :{
+        "tags" : ["User"],
+        "summary" : "List users",
+        "description" : "List all users in the database permission admin needed",
+        "parameters" : [
+          {
+            "in" : "header",
+            "name" : "user_id",
+            "required" : true,
+            "type" : "string",
+            "format" : "uuid"
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "success in the solicitation"
+          },
+          "400" : {
+            "description" : "admin required permission"
+          }
+        }
+    }
+    },
+    "/users/{user_id}/admin": {
+      "patch" : {
+        "tags" : ["User"],
+        "summary" : "Turn user Admin",
+        "description" : "Turn user admin of the sistem",
+        "parameters":[
+          {
+            "in" : "path",
+            "name": "user_id",
+            "required": true,
+            "type" : "string",
+            "format" : "uuid"
+          }
+        ],
+        "responses" :{
+          "200" : {
+            "description" : "success in the solicitation"
+          },
+          "404" : {
+            "description" : "User ID not found"
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get" : {
+      "tags" : ["User"],
+      "summary" : "Show profile user",
+      "description" : "Show informations about user",
+      "parameters" : [
+        {
+          "in" : "path",
+          "name" : "user_id",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        }
+      ],
+      "responses" :{
+        "200" : {
+          "description" : "success in the solicitation"
+        },
+        "404" : {
+          "description" : "User ID not found"
+        }
+      }
+      }
+    }
+  }
+}
